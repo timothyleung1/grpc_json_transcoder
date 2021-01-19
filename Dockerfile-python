@@ -3,17 +3,16 @@ FROM envoyproxy/envoy:v1.17.0
 RUN apt-get update
 
 RUN apt-get install -y curl python3.6 python3-pip
-RUN uname -an
 RUN ln -s /usr/bin/python3.6 /usr/bin/python
-RUN python --version
 
-
+# for debugging
 RUN pip3 install --upgrade setuptools
 RUN pip3 install  grpcio requests
 
 ADD ./client /client
 
 RUN chmod a+x /client/client.py
+# Not pretty.
 RUN mkdir /tmp/envoy
 RUN touch /tmp/envoy/admin_access.log
 RUN chmod 777 /tmp/envoy/admin_access.log
